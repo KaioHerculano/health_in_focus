@@ -1,0 +1,178 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="alert alert-danger text-center mb-5 rounded-3" role="alert">
+    🚨 <strong>Alerta de Saúde:</strong> Surto de viroses e dengue em <strong>Jauru - MT</strong>. Evite água parada e procure atendimento ao apresentar sintomas como febre, dor de cabeça ou manchas na pele.
+</div>
+
+<header class="py-5 text-center text-light rounded-3 mb-5 shadow-lg">
+  <div class="container">
+      <h1 class="display-4 fw-bold mb-3">Bem-vindo ao Portal Acesso Saúde</h1>
+      <p class="lead mb-4 fs-4">Informações acessíveis sobre saúde, direitos e inclusão social. Facilitando o acesso a dados e recursos importantes para sua saúde e bem-estar.</p>
+  </div>
+</header>
+
+<section class="container py-5">
+    <h4 class="fw-bold text-center mb-4 text-primary">📊 Casos de Doenças nos Últimos 30 Dias</h4>
+    <div class="row">
+        <div class="col-md-6 mb-4">
+            <div class="card shadow-sm border-0 rounded-3">
+                <div class="card-body">
+                    <canvas id="dengueChart"></canvas>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6 mb-4">
+            <div class="card shadow-sm border-0 rounded-3">
+                <div class="card-body">
+                    <canvas id="viroseChart"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<script>
+    window.onload = function () {
+        const dengueCtx = document.getElementById('dengueChart').getContext('2d');
+        new Chart(dengueCtx, {
+            type: 'bar',
+            data: {
+                labels: ['Dengue', 'Gripe'],
+                datasets: [{
+                    label: 'Casos registrados',
+                    data: [30, 45],
+                    backgroundColor: [
+                        'rgba(255, 99, 132, 0.5)',
+                        'rgba(255, 159, 64, 0.5)'
+                    ],
+                    borderColor: [
+                        'rgba(255, 99, 132, 1)',
+                        'rgba(255, 159, 64, 1)'
+                    ],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    title: {
+                        display: true,
+                        text: 'Doenças Virais Agudas (Dengue e Gripe)',
+                        font: { size: 18 }
+                    },
+                    legend: { display: false }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        ticks: { stepSize: 10 }
+                    }
+                }
+            }
+        });
+
+        const viroseCtx = document.getElementById('viroseChart').getContext('2d');
+        new Chart(viroseCtx, {
+            type: 'bar',
+            data: {
+                labels: ['Resfriado Comum', 'Virose'],
+                datasets: [{
+                    label: 'Casos registrados',
+                    data: [35, 50],
+                    backgroundColor: [
+                        'rgba(54, 162, 235, 0.5)',
+                        'rgba(153, 102, 255, 0.5)'
+                    ],
+                    borderColor: [
+                        'rgba(54, 162, 235, 1)',
+                        'rgba(153, 102, 255, 1)'
+                    ],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    title: {
+                        display: true,
+                        text: 'Infecções Leves (Resfriado e Virose)',
+                        font: { size: 18 }
+                    },
+                    legend: { display: false }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        ticks: { stepSize: 10 }
+                    }
+                }
+            }
+        });
+    };
+</script>
+
+<section class="container py-5">
+    <div class="row text-center">
+        <div class="col-md-4 mb-4">
+            <div class="card h-100 shadow-lg border-0 rounded-3">
+                <div class="card-body">
+                    <h5 class="card-title text-light">Unidades de Saúde</h5>
+                    <p class="card-text">Encontre postos e hospitais próximos com atendimento acessível.</p>
+                    <a href="{% url 'no_functionality' %}" class="btn btn-outline-primary">Ver mapa</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4 mb-4">
+            <div class="card h-100 shadow-lg border-0 rounded-3">
+                <div class="card-body">
+                    <h5 class="card-title text-light">Direitos do Paciente</h5>
+                    <p class="card-text">Saiba quais são seus direitos no SUS e no atendimento médico.</p>
+                    <a href="{% url 'patient_rights' %}" class="btn btn-outline-primary">Saiba mais</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4 mb-4">
+            <div class="card h-100 shadow-lg border-0 rounded-3">
+                <div class="card-body">
+                    <h5 class="card-title text-light">Informações em Áudio</h5>
+                    <p class="card-text">Navegue pelo conteúdo do site com audiodescrição e acessibilidade.</p>
+                    <a href="{% url 'no_functionality' %}" class="btn btn-outline-primary">Ouvir agora</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="bg-dark py-5">
+    <div class="container">
+        <h4 class="fw-bold text-center mb-4 text-light">📍 Contatos e Informações Importantes</h4>
+        <div class="row">
+            <div class="col-md-6 mb-4">
+                <div class="card shadow-lg border-0 rounded-3">
+                    <div class="card-body">
+                        <h5 class="card-title text-light">Prefeitura Municipal de Jauru</h5>
+                        <p><strong>Telefone:</strong> (65) 3244-1048</p>
+                        <p><strong>E-mail:</strong> <a href="mailto:contato@jauru.mt.gov.br" class="text-decoration-none text-light">contato@jauru.mt.gov.br</a></p>
+                        <p><strong>Endereço:</strong> Rua Dom Pedro II, SN, Centro</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6 mb-4">
+                <div class="card shadow-lg border-0 rounded-3">
+                    <div class="card-body">
+                        <h5 class="card-title text-light">Secretaria Municipal de Saúde</h5>
+                        <p><strong>Telefone:</strong> (65) 3244-1048</p>
+                        <p><strong>E-mail:</strong> <a href="mailto:saude@jauru.mt.gov.br" class="text-decoration-none text-light">saude@jauru.mt.gov.br</a></p>
+                        <p><strong>Endereço:</strong> Rua Dom Pedro II, SN, Centro</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

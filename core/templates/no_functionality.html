@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% block title %}Funcionalidade em Desenvolvimento{% endblock %}
+
+{% block content %}
+  <section class="container py-5 text-center">
+    <h1 class="display-4 mb-4 text-danger">🚧 Funcionalidade em Desenvolvimento</h1>
+    <p class="lead mb-4">Estamos trabalhando para trazer novas funcionalidades em breve. Agradecemos pela sua paciência.</p>
+    <p><strong>Fique atento para atualizações!</strong></p>
+
+    <!-- Botão de Voltar para a Home -->
+    <a href="{% url 'home' %}" class="btn btn-outline-primary btn-lg mt-4">
+      Voltar para o Início
+    </a>
+  </section>
+{% endblock %}

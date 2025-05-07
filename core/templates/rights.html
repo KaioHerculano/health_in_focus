@@ -1,0 +1,83 @@
+{% extends 'base.html' %}
+
+{% block title %}Direitos do Paciente{% endblock %}
+
+{% block content %}
+  <div class="container py-5">
+    <h1 class="display-4 text-center mb-5">Direitos do Paciente</h1>
+
+    <div class="row">
+      <div class="col-md-6 mb-4">
+        <div class="card shadow-lg border-0 rounded-4 hover-shadow">
+          <div class="card-body">
+            <h3 class="card-title text-primary mb-3">1. Direito à Informação</h3>
+            <p class="card-text">
+              O paciente tem o direito de ser informado sobre seu diagnóstico, tratamento e os riscos envolvidos, de forma clara e compreensível.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-6 mb-4">
+        <div class="card shadow-lg border-0 rounded-4 hover-shadow">
+          <div class="card-body">
+            <h3 class="card-title text-primary mb-3">2. Direito à Privacidade</h3>
+            <p class="card-text">
+              O paciente tem direito à privacidade, garantindo o sigilo de suas informações de saúde, a menos que haja consentimento para compartilhamento.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-6 mb-4">
+        <div class="card shadow-lg border-0 rounded-4 hover-shadow">
+          <div class="card-body">
+            <h3 class="card-title text-primary mb-3">3. Direito ao Consentimento Informado</h3>
+            <p class="card-text">
+              O paciente tem o direito de receber informações sobre todos os procedimentos médicos propostos, podendo decidir de forma consciente e livre.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-6 mb-4">
+        <div class="card shadow-lg border-0 rounded-4 hover-shadow">
+          <div class="card-body">
+            <h3 class="card-title text-primary mb-3">4. Direito ao Acompanhamento Familiar</h3>
+            <p class="card-text">
+              O paciente tem o direito de ser acompanhado por um familiar ou representante, caso deseje, durante o atendimento médico.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-6 mb-4">
+        <div class="card shadow-lg border-0 rounded-4 hover-shadow">
+          <div class="card-body">
+            <h3 class="card-title text-primary mb-3">5. Direito ao Tratamento Digno</h3>
+            <p class="card-text">
+              O paciente tem direito ao tratamento médico sem discriminação, com respeito à sua dignidade e direitos fundamentais.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-6 mb-4">
+        <div class="card shadow-lg border-0 rounded-4 hover-shadow">
+          <div class="card-body">
+            <h3 class="card-title text-primary mb-3">6. Direito ao Acesso aos Prontuários</h3>
+            <p class="card-text">
+              O paciente tem o direito de acessar seu prontuário médico, com informações claras sobre os tratamentos realizados e as condições de saúde.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="text-center mt-5">
+      <a href="{% url 'home' %}" class="btn btn-lg btn-outline-primary">
+        Voltar para o Início
+      </a>
+    </div>
+  </div>
+{% endblock %}
