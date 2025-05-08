@@ -1,0 +1,17 @@
+<nav class="navbar navbar-expand-lg bg-body border-bottom">
+  <div class="container-fluid">
+    <a class="navbar-brand fs-3 fw-bold" href="{% url 'home' %}">
+      <span class="text-primary">SAÚDE</span> 
+      <span class="text-body-secondary">EM</span>
+      <span class="text-primary">FOCO</span> 
+    </a>
+
+    <div class="d-flex gap-3">
+      <button onclick="toggleTheme()" 
+              id="themeButton" 
+              class="btn btn-light rounded-circle shadow-sm p-">
+        <i id="themeIcon" class="bi bi-sun fs-4"></i>
+      </button>
+    </div>
+  </div>
+</nav>

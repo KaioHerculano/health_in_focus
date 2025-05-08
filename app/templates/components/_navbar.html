@@ -1,21 +1,29 @@
-<nav class="navbar navbar-expand-lg navbar-dark bg-primary shadow-sm">
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark shadow-lg rounded-3">
   <div class="container">
-    <a class="navbar-brand fw-bold d-flex align-items-center" href="{% url 'home' %}">
-      <i class="bi bi-heart-pulse-fill me-2"></i> Saúde em Foco
-    </a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
       <span class="navbar-toggler-icon"></span>
     </button>
-    <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+    <div class="collapse navbar-collapse justify-content-center" id="navbarNav">
       <ul class="navbar-nav">
         <li class="nav-item">
-          <a class="nav-link {% if request.path == '/' %}active fw-semibold{% endif %}" href="{% url 'home' %}">Início</a>
+          <a class="nav-link {% if request.path == '/' %}active fw-semibold{% endif %}" href="{% url 'home' %}">
+            <i class="bi bi-house-door"></i> Início
+          </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link {% if request.path == '/agendar/' %}active fw-semibold{% endif %}" href="{% url 'schedule_appointment' %}">Agendar</a>
+          <a class="nav-link {% if request.path == '/agendar/' %}active fw-semibold{% endif %}" href="{% url 'schedule_create' %}">
+            <i class="bi bi-calendar-plus"></i> Agendar
+          </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link {% if request.path == '/direitos/' %}active fw-semibold{% endif %}" href="{% url 'patient_rights' %}">Direitos</a>
+          <a class="nav-link {% if request.path == '/agendamentos/' %}active fw-semibold{% endif %}" href="{% url 'schedule_list' %}">
+            <i class="bi bi-list-check"></i> Agendamentos
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link {% if request.path == '/direitos/' %}active fw-semibold{% endif %}" href="{% url 'rights_list' %}">
+            <i class="bi bi-flag"></i> Direitos
+          </a>
         </li>
       </ul>
     </div>
