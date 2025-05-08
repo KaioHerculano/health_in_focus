@@ -14,7 +14,6 @@ class AppointmentCalendarView(TemplateView):
     def post(self, request, *args, **kwargs):
         date_str = request.POST.get('filter_date')
         try:
-            # Converte string "dd/mm/yyyy" para objeto date
             selected_date = datetime.strptime(date_str, '%d/%m/%Y').date()
             appointments = Scheduling.objects.filter(date=selected_date)
         except (ValueError, TypeError):
@@ -27,7 +26,6 @@ class AppointmentCalendarView(TemplateView):
         })
 
     def get(self, request, *args, **kwargs):
-        # Exibe agendamentos de hoje como padrão
         today = datetime.today().date()
         appointments = Scheduling.objects.filter(date=today)
         return self.render_to_response({

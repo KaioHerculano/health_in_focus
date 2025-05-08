@@ -4,7 +4,7 @@ class Scheduling(models.Model):
     name = models.CharField(max_length=100)
     cpf = models.CharField(max_length=14)
     date = models.DateField()
-    time = models.TimeField()  # <-- Novo campo
+    time = models.TimeField()
     specialty = models.CharField(max_length=100)
     observations = models.TextField(blank=True)
 
