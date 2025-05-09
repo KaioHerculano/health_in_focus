@@ -1,4 +1,4 @@
-# 🏥 Projeto de Informações de Saúde com Dashboard
+# 🏥 Projeto de Informações de Saúde e agendamento de consultas com Dashboard
 
 Este é um sistema web desenvolvido com **Django** e **Bootstrap** que tem como objetivo fornecer **informações acessíveis sobre saúde**, com recursos como:
 
