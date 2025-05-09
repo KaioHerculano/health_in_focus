@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark shadow-lg rounded-3">
+<nav class="navbar navbar-expand-lg navbar-body bg-body shadow-lg rounded-3">
   <div class="container">
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
       <span class="navbar-toggler-icon"></span>
@@ -25,6 +25,22 @@
             <i class="bi bi-flag"></i> Direitos
           </a>
         </li>
+        {% if user.is_authenticated %}
+          <li class="nav-item">
+            <form action="{% url 'logout' %}" method="POST" style="display:inline;">
+              {% csrf_token %}
+              <button type="submit" class="nav-link btn btn-link">
+                <i class="bi bi-box-arrow-right"></i> Sair
+              </button>
+            </form>
+          </li>
+        {% else %}
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'login' %}">
+              <i class="bi bi-person-circle"></i> Entrar
+            </a>
+          </li>
+        {% endif %}
       </ul>
     </div>
   </div>

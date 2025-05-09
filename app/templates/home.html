@@ -2,13 +2,13 @@
 
 {% block content %}
 <div class="alert alert-danger text-center mb-5 rounded-3" role="alert">
-    🚨 <strong>Alerta de Saúde:</strong> Surto de viroses e dengue em <strong>Jauru - MT</strong>. Evite água parada e procure atendimento ao apresentar sintomas como febre, dor de cabeça ou manchas na pele.
+    🚨 <strong>Alerta de Saúde:</strong> Surto de viroses e chikungunya em <strong>Jauru - MT</strong>. Evite água parada e procure atendimento ao apresentar sintomas como febre, dor de cabeça ou manchas na pele.
 </div>
 
-<header class="py-5 text-center text-light rounded-3 mb-5 shadow-lg">
+<header class="py-5 text-center text-light rounded-3 mb-5 shadow-lg bg-primary">
   <div class="container">
-      <h1 class="display-4 fw-bold mb-3">Bem-vindo ao Portal Acesso Saúde</h1>
-      <p class="lead mb-4 fs-4">Informações acessíveis sobre saúde, direitos e inclusão social. Facilitando o acesso a dados e recursos importantes para sua saúde e bem-estar.</p>
+      <h1 class="display-5 fw-bold mb-3">Bem-vindo ao Portal Acesso Saúde</h1>
+      <p class="lead mb-0 fs-5">Informações acessíveis sobre saúde, direitos e inclusão social. Facilitando o acesso a dados e recursos importantes para sua saúde e bem-estar.</p>
   </div>
 </header>
 
@@ -16,64 +16,83 @@
 
 <section class="container py-5">
     <div class="row text-center">
+        <!-- Mapa -->
         <div class="col-md-4 mb-4">
-            <div class="card h-100 shadow-lg border-0 rounded-3">
+            <div class="card h-100 shadow border-0 rounded-3">
                 <div class="card-body">
-                    <h5 class="card-title text-light">Unidades de Saúde</h5>
-                    <p class="card-text">Encontre postos e hospitais próximos com atendimento acessível.</p>
-                    <a href="{% url 'error_functionality' %}" class="btn btn-outline-primary">Ver mapa</a>
+                    <h5 class="card-title text-primary">Unidades de Saúde</h5>
+                    <p class="card-text small">Encontre postos e hospitais próximos com atendimento acessível.</p>
+                    <a href="https://www.google.com/maps?q=-15.342753533278637, -58.86884589727605" target="_blank" class="btn btn-outline-primary btn-sm">Ver mapa</a>
                 </div>
             </div>
         </div>
 
+        <!-- Direitos -->
         <div class="col-md-4 mb-4">
-            <div class="card h-100 shadow-lg border-0 rounded-3">
+            <div class="card h-100 shadow border-0 rounded-3">
                 <div class="card-body">
-                    <h5 class="card-title text-light">Direitos do Paciente</h5>
-                    <p class="card-text">Saiba quais são seus direitos no SUS e no atendimento médico.</p>
-                    <a href="{% url 'rights_list' %}" class="btn btn-outline-primary">Saiba mais</a>
+                    <h5 class="card-title text-primary">Direitos do Paciente</h5>
+                    <p class="card-text small">Saiba quais são seus direitos no SUS e no atendimento médico.</p>
+                    <a href="{% url 'rights_list' %}" class="btn btn-outline-primary btn-sm">Saiba mais</a>
                 </div>
             </div>
         </div>
 
+        <!-- Áudio -->
         <div class="col-md-4 mb-4">
-            <div class="card h-100 shadow-lg border-0 rounded-3">
+            <div class="card h-100 shadow border-0 rounded-3">
                 <div class="card-body">
-                    <h5 class="card-title text-light">Informações em Áudio</h5>
-                    <p class="card-text">Navegue pelo conteúdo do site com audiodescrição e acessibilidade.</p>
-                    <a href="{% url 'error_functionality' %}" class="btn btn-outline-primary">Ouvir agora</a>
+                    <h5 class="card-title text-primary">Informações em Áudio</h5>
+                    <p class="card-text small">Navegue pelo conteúdo do site com audiodescrição e acessibilidade.</p>
+                    <a href="#" onclick="lerTexto()" class="btn btn-outline-primary btn-sm">Ouvir agora</a>
                 </div>
             </div>
         </div>
     </div>
 </section>
 
-<section class="bg-dark py-5">
+<section class="bg-body py-5">
     <div class="container">
-        <h4 class="fw-bold text-center mb-4 text-light">📍 Contatos e Informações Importantes</h4>
+        <h4 class="fw-bold text-center mb-4 text-body">📍 Contatos e Informações Importantes</h4>
         <div class="row">
             <div class="col-md-6 mb-4">
-                <div class="card shadow-lg border-0 rounded-3">
+                <div class="card shadow-lg border-0 rounded-3 bg-body text-body">
                     <div class="card-body">
-                        <h5 class="card-title text-light">Prefeitura Municipal de Jauru</h5>
-                        <p><strong>Telefone:</strong> (65) 3244-1048</p>
-                        <p><strong>E-mail:</strong> <a href="mailto:contato@jauru.mt.gov.br" class="text-decoration-none text-light">contato@jauru.mt.gov.br</a></p>
-                        <p><strong>Endereço:</strong> Rua Dom Pedro II, SN, Centro</p>
+                        <h5 class="card-title">Prefeitura Municipal de Jauru</h5>
+                        <p class="small"><strong>Telefone:</strong> (65) 3244-1048</p>
+                        <p class="small"><strong>E-mail:</strong> <a href="mailto:contato@jauru.mt.gov.br" class="text-body text-decoration-underline">contato@jauru.mt.gov.br</a></p>
+                        <p class="small"><strong>Endereço:</strong> Rua Dom Pedro II, SN, Centro</p>
                     </div>
                 </div>
             </div>
 
             <div class="col-md-6 mb-4">
-                <div class="card shadow-lg border-0 rounded-3">
+                <div class="card shadow-lg border-0 rounded-3 bg-body text-body">
                     <div class="card-body">
-                        <h5 class="card-title text-light">Secretaria Municipal de Saúde</h5>
-                        <p><strong>Telefone:</strong> (65) 3244-1048</p>
-                        <p><strong>E-mail:</strong> <a href="mailto:saude@jauru.mt.gov.br" class="text-decoration-none text-light">saude@jauru.mt.gov.br</a></p>
-                        <p><strong>Endereço:</strong> Rua Dom Pedro II, SN, Centro</p>
+                        <h5 class="card-title">Secretaria Municipal de Saúde</h5>
+                        <p class="small"><strong>Telefone:</strong> (65) 3244-1048</p>
+                        <p class="small"><strong>E-mail:</strong> <a href="mailto:saude@jauru.mt.gov.br" class="text-body text-decoration-underline">saude@jauru.mt.gov.br</a></p>
+                        <p class="small"><strong>Endereço:</strong> Rua Dom Pedro II, SN, Centro</p>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 </section>
+
+<script>
+function lerTexto() {
+    const texto = `
+        Bem-vindo ao Portal Acesso Saúde. Aqui você encontra informações acessíveis sobre as unidades de saúde de Jauru,
+        seus direitos como paciente e formas de agendar consultas de maneira simples,
+        aqui você também consegue ver os agendamentos do dia e ainda agendar sua consulta. 
+        Alerta de Saúde! Surto de viroses e chikungunya em Jauru. Evite água parada e procure atendimento ao apresentar sintomas como febre, dor de cabeça ou manchas na pele.
+        Tivemos muitos casos de virose e chikungunya nos ultimos 30 dias, você pode ver a quantidade no grafico abaixo!
+        Conte com a gente para promover mais inclusão e bem-estar em Jauru.
+    `;
+    const fala = new SpeechSynthesisUtterance(texto);
+    fala.lang = 'pt-BR';
+    speechSynthesis.speak(fala);
+}
+</script>
 {% endblock %}

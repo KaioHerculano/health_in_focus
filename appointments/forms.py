@@ -1,6 +1,16 @@
 from django import forms
 from .models import Scheduling
 
+DISEASE_CHOICES = [
+    ('gripe', 'Gripe'),
+    ('dengue', 'Dengue'),
+    ('covid', 'COVID-19'),
+    ('zika', 'Zika Vírus'),
+    ('chikungunya', 'Chikungunya'),
+    ('hepatite', 'Hepatite'),
+    ('outro', 'Outro'),
+]
+
 class SchedulingForm(forms.ModelForm):
     class Meta:
         model = Scheduling
@@ -10,9 +20,10 @@ class SchedulingForm(forms.ModelForm):
             'cpf': forms.TextInput(attrs={'class': 'form-control'}),
             'date': forms.DateInput(attrs={'type': 'date', 'class': 'form-control'}),
             'time': forms.TimeInput(attrs={'type': 'time', 'class': 'form-control'}),
-            'specialty': forms.TextInput(attrs={'class': 'form-control'}),
+            'specialty': forms.Select(choices=DISEASE_CHOICES, attrs={'class': 'form-select'}),
             'observations': forms.Textarea(attrs={'rows': 3, 'class': 'form-control'}),
         }
+
     def clean(self):
         cleaned_data = super().clean()
         date = cleaned_data.get("date")
@@ -25,4 +36,3 @@ class SchedulingForm(forms.ModelForm):
             raise forms.ValidationError("Já existe um agendamento para esse horário.")
 
         return cleaned_data
-

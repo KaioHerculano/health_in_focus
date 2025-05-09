@@ -1,11 +1,8 @@
-from django.views.generic import TemplateView, FormView, ListView
-from django.views import View
-from django.shortcuts import render
+from django.views.generic import TemplateView, CreateView, DeleteView
 from datetime import datetime
 from django.urls import reverse_lazy
 from .models import Scheduling
 from .forms import SchedulingForm
-
 
 
 class AppointmentCalendarView(TemplateView):
@@ -33,7 +30,7 @@ class AppointmentCalendarView(TemplateView):
             'selected_date': today.strftime('%d/%m/%Y')
         })
 
-class CreateAppointmentView(FormView):
+class CreateAppointmentView(CreateView):
     template_name = 'create_appointments.html'
     form_class = SchedulingForm
     success_url = reverse_lazy('success')
@@ -43,6 +40,12 @@ class CreateAppointmentView(FormView):
         return super().form_valid(form)
 
 
+class DeleteAppointmentView(DeleteView):
+    model = Scheduling
+    template_name = 'delete_appointment.html'  # Template para confirmação de exclusão
+    success_url = reverse_lazy('schedule_list')
+
+
 class ErrorFunctionalityView(TemplateView):
     template_name = 'error_functionality.html'
 
@@ -50,9 +53,6 @@ class ErrorFunctionalityView(TemplateView):
 class ListPatientRightsView(TemplateView):
     template_name = 'list_rights.html'
 
-
-class HomeView(TemplateView):
-    template_name = 'home.html'
 
 
 class SuccessView(TemplateView):

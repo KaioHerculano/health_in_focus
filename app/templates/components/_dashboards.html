@@ -1,100 +1,154 @@
+<!-- components/_dashboards.html -->
 <section class="container py-5">
+    <!-- Debugging Section -->
+
     <h4 class="fw-bold text-center mb-4 text-primary">📊 Casos de Doenças nos Últimos 30 Dias</h4>
-    <div class="row">
-        <div class="col-md-6 mb-4">
-            <div class="card shadow-sm border-0 rounded-3">
-                <div class="card-body">
-                    <canvas id="dengueChart"></canvas>
+    <div class="card shadow-sm border-0 rounded-3">
+        <div class="card-body position-relative">
+            <!-- Loading State -->
+            <div id="chartLoading" class="text-center py-4">
+                <div class="spinner-border text-primary" role="status">
+                    <span class="visually-hidden">Carregando...</span>
                 </div>
             </div>
-        </div>
-
-        <div class="col-md-6 mb-4">
-            <div class="card shadow-sm border-0 rounded-3">
-                <div class="card-body">
-                    <canvas id="viroseChart"></canvas>
-                </div>
+            
+            <!-- Chart Container -->
+            <canvas id="diseaseChart" style="display: none;"></canvas>
+            
+            <!-- Empty State -->
+            <div id="chartEmpty" class="text-center py-4" style="display: none;">
+                <i class="bi bi-bar-chart fs-1 text-muted"></i>
+                <p class="text-muted mt-2">Nenhum dado disponível</p>
             </div>
         </div>
     </div>
 </section>
 
-<script>
-    window.onload = function () {
-        const dengueCtx = document.getElementById('dengueChart').getContext('2d');
-        new Chart(dengueCtx, {
-            type: 'bar',
-            data: {
-                labels: ['Dengue', 'Gripe'],
-                datasets: [{
-                    label: 'Casos registrados',
-                    data: [30, 45],
-                    backgroundColor: [
-                        'rgba(255, 99, 132, 0.5)',
-                        'rgba(255, 159, 64, 0.5)'
-                    ],
-                    borderColor: [
-                        'rgba(255, 99, 132, 1)',
-                        'rgba(255, 159, 64, 1)'
-                    ],
-                    borderWidth: 1
-                }]
-            },
-            options: {
-                responsive: true,
-                plugins: {
-                    title: {
-                        display: true,
-                        text: 'Doenças Virais Agudas (Dengue e Gripe)',
-                        font: { size: 18 }
-                    },
-                    legend: { display: false }
-                },
-                scales: {
-                    y: {
-                        beginAtZero: true,
-                        ticks: { stepSize: 10 }
-                    }
-                }
-            }
-        });
+{{ labels|json_script:"chartLabels" }}
+{{ counts|json_script:"chartCounts" }}
 
-        const viroseCtx = document.getElementById('viroseChart').getContext('2d');
-        new Chart(viroseCtx, {
-            type: 'bar',
-            data: {
-                labels: ['Resfriado Comum', 'Virose'],
-                datasets: [{
-                    label: 'Casos registrados',
-                    data: [35, 50],
-                    backgroundColor: [
-                        'rgba(54, 162, 235, 0.5)',
-                        'rgba(153, 102, 255, 0.5)'
-                    ],
-                    borderColor: [
-                        'rgba(54, 162, 235, 1)',
-                        'rgba(153, 102, 255, 1)'
-                    ],
-                    borderWidth: 1
-                }]
-            },
-            options: {
-                responsive: true,
-                plugins: {
-                    title: {
-                        display: true,
-                        text: 'Infecções Leves (Resfriado e Virose)',
-                        font: { size: 18 }
-                    },
-                    legend: { display: false }
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        const chartCanvas = document.getElementById('diseaseChart');
+        const loadingElem = document.getElementById('chartLoading');
+        const emptyElem = document.getElementById('chartEmpty');
+        
+        // Paleta de cores dinâmica
+        const generateColors = (count) => {
+            const colors = [];
+            const hueStep = 360 / count;
+            for(let i = 0; i < count; i++) {
+                const hue = Math.floor(hueStep * i);
+                colors.push(`hsl(${hue}, 70%, 60%)`); // Cores mais vibrantes
+            }
+            return colors;
+        };
+    
+        try {
+            const labels = JSON.parse(document.getElementById('chartLabels').textContent);
+            const counts = JSON.parse(document.getElementById('chartCounts').textContent);
+            
+            if (labels.length === 0 || counts.length === 0 || labels.length !== counts.length) {
+                throw new Error('Dados inválidos ou inconsistentes');
+            }
+    
+            loadingElem.style.display = 'none';
+            
+            const ctx = chartCanvas.getContext('2d');
+            chartCanvas.style.display = 'block';
+            
+            // Gerar cores
+            const backgroundColors = generateColors(labels.length);
+            const hoverColors = backgroundColors.map(color => color.replace('60%)', '50%)'));
+    
+            new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: labels,
+                    datasets: [{
+                        label: 'Casos registrados',
+                        data: counts,
+                        backgroundColor: backgroundColors,
+                        borderColor: hoverColors, // Borda mais escura
+                        borderWidth: 2,
+                        borderRadius: 6,
+                        hoverBackgroundColor: hoverColors,
+                        hoverBorderWidth: 3
+                    }]
                 },
-                scales: {
-                    y: {
-                        beginAtZero: true,
-                        ticks: { stepSize: 10 }
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        tooltip: {
+                            enabled: true,
+                            mode: 'index',
+                            displayColors: true,
+                            callbacks: {
+                                label: (context) => {
+                                    const label = context.dataset.label || '';
+                                    return `${label}: ${context.raw} casos`;
+                                }
+                            }
+                        },
+                        legend: {
+                            display: true,
+                            position: 'top',
+                            labels: {
+                                color: '#6c757d',
+                                font: {
+                                    size: 14
+                                },
+                                usePointStyle: true
+                            }
+                        },
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            ticks: { 
+                                precision: 0,
+                                stepSize: Math.max(...counts) > 10 ? 2 : 1,
+                                color: '#7f8c8d'
+                            },
+                            grid: {
+                                color: 'rgba(0, 0, 0, 0.07)',
+                                drawBorder: false
+                            },
+                            title: {
+                                display: true,
+                                text: 'Número de Casos',
+                                color: '#7f8c8d'
+                            }
+                        },
+                        x: {
+                            grid: {
+                                display: false
+                            },
+                            ticks: {
+                                color: '#7f8c8d',
+                                font: {
+                                    weight: '500'
+                                }
+                            },
+                        }
+                    },
+                    animation: {
+                        duration: 1500,
+                        easing: 'easeOutQuart'
                     }
                 }
-            }
-        });
-    };
-</script>
+            });
+    
+        } catch (error) {
+            console.error('Erro ao renderizar gráfico:', error);
+            loadingElem.style.display = 'none';
+            emptyElem.style.display = 'block';
+            emptyElem.innerHTML = `
+                <i class="bi bi-x-circle fs-1 text-danger"></i>
+                <p class="text-danger mt-2">Erro ao carregar dados: ${error.message}</p>
+            `;
+        }
+    });
+    </script>
